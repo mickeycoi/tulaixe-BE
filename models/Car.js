@@ -3,23 +3,23 @@ const Schema = mongoose.Schema;
 
 const carSchema = Schema(
   {
-    licensePlate: { type: String, require: true },
-    brand: { type: String },
-    model: { type: String },
-    user: {
+    owner: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: "User",
     },
-    imageURL: { type: String, require: true },
-    status: { type: String, enum: ["actived", "pending", "reject", "stop"] },
-    location: { type: String },
-    fuel: { type: String },
-    seat: { type: Number },
-    insurance: { type: String },
-    deposit: { type: String },
-    price: { type: Number, require: true },
-    countRent: { type: Number, default: 0 },
+    brand: { type: String, require: true, default: "" },
+    model: { type: String, require: true, default: "" },
+    color: { type: String, require: true, default: "" },
+    imageURL: { type: String, require: true, default: "" },
+    location: { type: String, require: true, default: "" },
+    fuel: { type: String, require: true, default: "" },
+    insurance: { type: String, require: true, default: "" },
+    seat: { type: Number, require: true, default: 0 },
+    deposit: { type: Number, require: true, default: 0 },
+    price: { type: Number, require: true, default: 0 },
+    countRent: { type: Number, require: false, default: 0 },
+    isAvailable: { type: Boolean, require: false, default: true },
     isDeleted: { type: Boolean, default: false, select: false },
   },
   { timestamps: true }

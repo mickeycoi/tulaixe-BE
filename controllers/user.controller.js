@@ -6,14 +6,14 @@ const userController = {};
 
 //Register new account
 userController.register = catchAsync(async (req, res, next) => {
-  let { name, email, password, role } = req.body;
+  let { name, email, password } = req.body;
 
   let user = await User.findOne({ email });
   if (user) throw new AppError(400, "Email alredy exit", "Register Error");
 
   const salt = await bcryptjs.genSalt(10);
   password = await bcryptjs.hash(password, salt);
-  user = await User.create({ name, email, password, role });
+  user = await User.create({ name, email, password });
   const accessToken = await user.generateToken();
 
   sendResponse(
@@ -43,7 +43,6 @@ userController.getSingleUser = catchAsync(async (req, res, next) => {
 });
 
 //Update User Profile
-
 userController.updateProfile = catchAsync(async (req, res, next) => {
   const currentUserId = req.userMyId;
   const userId = req.params.userId;
